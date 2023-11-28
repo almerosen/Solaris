@@ -23,7 +23,7 @@ async function key() {
 }*/
 
 
-// Get key function
+// Get key function:
 async function getKey() {
     const response = await fetch(`${keyURL}`, {
         method: 'POST',
@@ -39,10 +39,10 @@ async function getKey() {
 
 getKey();
 
-// Get planet function
+// Get planet function:
 async function getplanet(id) {
     //getKey();
-    const response = await fetch("https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/bodies", {
+    const response = await fetch(`${baseURL}/bodies`, {
         method: 'GET',
         headers: {'x-zocom': `${apiKey}`}
     });
@@ -111,15 +111,20 @@ async function planetDetails() {
     minTempTxt.innerHTML = `${planet.temp.night} C`;
     minTempDiv.append(minTempTxt);
 
+    // Loopar ut månarna ur en moon-array:
+    const moonArray = planet.moons;
+    console.log(moonArray);
     const moonHeader = document.createElement("h3");
     moonHeader.innerHTML = "MÅNAR";
     moonDiv.append(moonHeader);
     const moonTxt = document.createElement("p");
-    moonTxt.innerHTML = planet.moons;
+    for (i = 0; i < moonArray.length; i++) {
+        moonTxt.innerHTML += `${moonArray[i]}, `;
+    }
     moonDiv.append(moonTxt);
 }
 
-
+/*****************************************************************/
 
 
 
@@ -158,6 +163,18 @@ async function planetDetails() {
   planet7.addEventListener('click', () => {
     openOverlay();
     getplanet(6);
+  })
+
+  const planet8 = document.querySelector(".planet8");
+  planet8.addEventListener('click', () => {
+    openOverlay();
+    getplanet(7);
+  })
+
+  const planet9 = document.querySelector(".planet9");
+  planet9.addEventListener('click', () => {
+    openOverlay();
+    getplanet(8);
   })
 
 
