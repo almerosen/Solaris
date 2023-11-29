@@ -14,43 +14,48 @@ const maxTempDiv = document.querySelector(".max-container");
 const minTempDiv = document.querySelector(".min-container");
 const moonDiv = document.querySelector(".moon-container");
 
-/*
-async function key() {
-    const response = await fetch(keyURL);
-    const data = await response.json();
-    console.log(data);
-    
-}*/
 
 
 // Get key function:
 async function getKey() {
+  try {
     const response = await fetch(`${keyURL}`, {
         method: 'POST',
     });
+
+    if (!response.ok) {
+      throw new Error (`Request failed with status ${response.status}`);
+    }
 
     const data = await response.json();
     console.log(data);
     apiKey = data.key;
     console.log(apiKey);
 
-    //getplanet(apiKey, 1);
+  } catch(error) {
+    console.log("Error fetching data:", error);
+  } 
 }
 
 getKey();
 
 // Get planet function:
-async function getplanet(id) {
-    //getKey();
-    const response = await fetch(`${baseURL}/bodies`, {
-        method: 'GET',
-        headers: {'x-zocom': `${apiKey}`}
-    });
-    const data = await response.json();
-    console.log(data.bodies[id]);
-    planet = data.bodies[id];
-    console.log(planet.name);
-    planetDetails(id)
+async function getplanet(id) {  
+    try {
+        const response = await fetch(`${baseURL}/bodies`, {
+            method: 'GET',
+            headers: {'x-zocom': `${apiKey}`}
+        });
+    
+        const data = await response.json();
+        console.log(data.bodies[id]);
+        planet = data.bodies[id];
+        console.log(planet.name);
+        planetDetails(id)
+
+    } catch(error) {
+        console.log("Error fetching data:", error);
+    }    
 }
 
 // Get planet details and reset and create elements:
@@ -65,7 +70,7 @@ async function planetDetails() {
     moonDiv.innerHTML = "";
 
     
-    const response = await fetch("https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/bodies", {
+    const response = await fetch(`${baseURL}/bodies`, {
         method: 'GET',
         headers: {'x-zocom': `${apiKey}`}
     });
@@ -183,6 +188,9 @@ async function planetDetails() {
 
 function openOverlay() {
     document.getElementById("overlay-page").style.width = "100%";
+    stars.innerHTML = "";
+    stars6px();
+    stars3px();
   }
   
   function closeOverlay() {
@@ -199,8 +207,12 @@ function openOverlay() {
 
   const stars = document.querySelector(".stars");
 
-  function randint(max) {
+  function random(max) {
     return Math.floor(Math.random() * max);
+  }
+  function randomPosition(element, xMax, yMax) {
+    element.style.left = random(xMax) + "px";
+    element.style.top = random(yMax) + "px";
   }
 
   function stars6px() {
@@ -212,10 +224,25 @@ function openOverlay() {
       star6.style.backgroundColor = "white";
       star6.style.opacity = "0.3";
       star6.style.position = "absolute";
-      star6.style.left = randint(1100) + "px";
-      star6.style.top = randint(700) + "px";
+      randomPosition(star6, 1134.6, 760);
       stars.append(star6);
-      console.log("star6");
     }
   }
-  stars6px();
+
+  function stars3px() {
+    for (j = 0; j < 22; j++) {
+      const star3 = document.createElement("div");
+      star3.style.width = "3px";
+      star3.style.height = "3px";
+      star3.style.borderRadius = "50%";
+      star3.style.backgroundColor = "rgba(255, 255, 255, 1)";
+      star3.style.opacity = "0.3";
+      star3.style.position = "absolute";
+      randomPosition(star3, 1134.6, 760);
+      stars.append(star3);
+    }
+  }
+
+  function stars58p() {
+
+  }
