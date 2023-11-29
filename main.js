@@ -70,12 +70,12 @@ async function planetDetails() {
         headers: {'x-zocom': `${apiKey}`}
     });
 
-    const planetHeader = document.createElement("h1");
-    planetHeader.innerHTML = planet.name;
+    let planetHeader = document.createElement("h1");
+    planetHeader.innerHTML = planet.name.toUpperCase();
     planetHeaderDiv.append(planetHeader);
 
     const planetHeaderLatin = document.createElement("h2");
-    planetHeaderLatin.innerHTML = planet.latinName;
+    planetHeaderLatin.innerHTML = planet.latinName.toUpperCase();
     planetHeaderLatinDiv.append(planetHeaderLatin);
 
     const descriptionTxt = document.createElement("p");
