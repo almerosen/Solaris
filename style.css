@@ -438,6 +438,15 @@ p {
     transition: 0.3s;
     cursor: pointer;
   }
+
+  .stars {
+    width: 1134.6px;
+    height: 760px;
+    position: absolute;
+    bottom: 5%;
+    right: 3%;
+    filter: blur(2px);
+  }
   
   
 

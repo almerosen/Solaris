@@ -193,3 +193,29 @@ function openOverlay() {
   closeButton.addEventListener('click', () => {
     closeOverlay();
   })
+
+
+  /********************* STARS ************************/
+
+  const stars = document.querySelector(".stars");
+
+  function randint(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  function stars6px() {
+    for (i = 0; i < 15; i++) {
+      const star6 = document.createElement("div");
+      star6.style.width = "6px";
+      star6.style.height = "6px";
+      star6.style.borderRadius = "50%";
+      star6.style.backgroundColor = "white";
+      star6.style.opacity = "0.3";
+      star6.style.position = "absolute";
+      star6.style.left = randint(1100) + "px";
+      star6.style.top = randint(700) + "px";
+      stars.append(star6);
+      console.log("star6");
+    }
+  }
+  stars6px();
