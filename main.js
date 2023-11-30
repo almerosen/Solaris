@@ -87,45 +87,69 @@ async function planetDetails() {
     descriptionTxt.innerHTML = planet.desc;
     description.append(descriptionTxt);
 
+    // Circumference, space between every third number:
     const circumferenceHeader = document.createElement("h3");
     circumferenceHeader.innerHTML = "OMKRETS";
     circumference.append(circumferenceHeader);
     const circumferenceTxt = document.createElement("p");
-    circumferenceTxt.innerHTML = `${planet.circumference} km`;
+    let circumferenceArray = planet.circumference.toString().split("");
+    // For loop backwards every third number:
+    for (i = circumferenceArray.length - 3; i > 0; i -= 3 ) {
+      circumferenceArray.splice([i], 0, " ");
+    }
+    circumferenceTxt.innerHTML = `${circumferenceArray.join("")} km`;
     circumference.append(circumferenceTxt);
 
 
+    // Distance from sun:
     const distanceFromSunHeader = document.createElement("h3");
     distanceFromSunHeader.innerHTML = "KM FRÅN SOLEN";
     distanceFromSunDiv.append(distanceFromSunHeader);
+
+    // Space between every third number:
     const distanceFromSunTxt = document.createElement("p");
-    distanceFromSunTxt.innerHTML = `${planet.distance} km`;
+    let distance = planet.distance;
+    let distanceArray = distance.toString().split("");
+    for (i = distanceArray.length -3; i >0; i -= 3) {
+      distanceArray.splice([i], 0, " ");
+    }
+    distanceFromSunTxt.innerHTML = `${distanceArray.join("")} km`;
     distanceFromSunDiv.append(distanceFromSunTxt);
 
+    // Max temp, checkar ifall temperaturen innehåller "-" och inför isf mellanslag:
     const maxTempHeader = document.createElement("h3");
     maxTempHeader.innerHTML = ("MAX TEMPERATUR");
     maxTempDiv.append(maxTempHeader);
     const maxTempTxt = document.createElement("p");
-    maxTempTxt.innerHTML = `${planet.temp.day} C`;
+
+    let maxTemp = planet.temp.day;
+    let maxTempArray = maxTemp.toString().split("");
+    if (maxTempArray.includes("-")) {
+        maxTempArray.splice(1, 0, " ");
+    }
+    maxTempTxt.innerHTML = `${maxTempArray.join("")} C`;
     maxTempDiv.append(maxTempTxt);
 
+    /****** Min temp with space between - and number: ******/
     const minTempHeader = document.createElement("h3");
     minTempHeader.innerHTML = "MIN TEMPERATUR";
     minTempDiv.append(minTempHeader);
+
     const minTempTxt = document.createElement("p");
-    minTempTxt.innerHTML = `${planet.temp.night} C`;
+    let minTemp = planet.temp.night;
+    let minTempArray = minTemp.toString().split("");
+    minTempArray.splice(1, 0, " ");
+    minTempTxt.innerHTML = `${minTempArray.join("")} C`;
     minTempDiv.append(minTempTxt);
 
-    // Loopar ut månarna ur en moon-array:
+
+    // Moons:
     const moonArray = planet.moons;
-    console.log(moonArray);
     const moonHeader = document.createElement("h3");
     moonHeader.innerHTML = "MÅNAR";
     moonDiv.append(moonHeader);
     const moonTxt = document.createElement("p");
-    for (i = 0; i < moonArray.length; i++) {
-        moonTxt.innerHTML += `${moonArray[i]}, `;
-    }
+    moonTxt.innerHTML = moonArray.join(", ");
     moonDiv.append(moonTxt);
 }
 

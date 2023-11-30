@@ -120,11 +120,16 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    margin-left: 12.7rem;
+    margin-top: 11.5rem;
+    /*
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin-left: 3rem;
+    */
 }
 
 .planet2 {
@@ -305,10 +310,15 @@ p {
     gap: 32px;
     flex-shrink: 0;
     color: white;
+
+    margin: 6.31rem 25rem 7.31rem 25rem ;
+
+    /*
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    */
 }
 
 .planet-header__container {
@@ -320,7 +330,9 @@ p {
 }
 
 .description {
-    align-self: stretch;
+    position: relative;
+    max-height: 15rem;
+    overflow-y: auto;
 
 }
 
