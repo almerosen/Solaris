@@ -50,7 +50,6 @@ async function getplanet(index) {
         const data = await response.json();
         console.log(data.bodies[index]);
         planet = data.bodies[index];
-        console.log(planet.name);
         
         planetDetails()
 
@@ -60,7 +59,7 @@ async function getplanet(index) {
 }
 
 // Get planet details and reset and create elements:
-async function planetDetails() {
+function planetDetails() {
     planetHeaderDiv.innerHTML = "";
     planetHeaderLatinDiv.innerHTML = "";
     description.innerHTML = "";
@@ -69,12 +68,7 @@ async function planetDetails() {
     maxTempDiv.innerHTML = "";
     minTempDiv.innerHTML = "";
     moonDiv.innerHTML = "";
-
-    /*
-    const response = await fetch(`${baseURL}/bodies`, {
-        method: 'GET',
-        headers: {'x-zocom': `${apiKey}`}
-    });*/
+    
 
     let planetHeader = document.createElement("h1");
     planetHeader.innerHTML = planet.name.toUpperCase();
