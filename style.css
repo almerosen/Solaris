@@ -221,7 +221,11 @@ p {
 .planet6:hover {
     transform: scale(1.1);
     transition: .2s;
-    background-color: #de6d2b;
+    background: radial-gradient(
+      circle at 10% 40%,
+      #E29468,
+      #7b2d00
+    );
     cursor: pointer;
     box-shadow: 0 0 30px 5px black,
     0 0 60px 10px #bae048;
@@ -239,7 +243,11 @@ p {
 .planet7:hover {
     transform: scale(1.1);
     transition: .2s;
-    background-color: #c99d47;
+    background: radial-gradient(
+        circle at 10% 40%,
+        #C7AA72,
+        #6b4a09
+      );
     cursor: pointer;
     box-shadow: 0 0 30px 5px black, 
     0 0 40px 10px #bae048;
@@ -257,7 +265,11 @@ p {
 .planet8:hover {
     transform: scale(1.1);
     transition: .2s;
-    background-color: #a1b7f1;
+    background: radial-gradient(
+        circle at 10% 40%,
+        #C9D4F1,
+        #264082
+      );
     cursor: pointer;
     box-shadow: 0 0 30px 5px black,
     0 0 40px 10px #bae048;
@@ -275,7 +287,11 @@ p {
 .planet9:hover {
     transform: scale(1.1);
     transition: .2s;
-    background-color: #5a80a4;
+    background: radial-gradient(
+        circle at 10% 40%,
+        #7A91A7,
+        #294e71
+      );
     cursor: pointer;
     box-shadow: 0 0 30px 5px black,
     0 0 40px 10px #bae048;

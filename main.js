@@ -16,7 +16,7 @@ const moonDiv = document.querySelector(".moon-container");
 
 
 
-// Get key function:
+// Get key and planet function:
 async function getKeyAndPlanet(index) {
   try {
     const response = await fetch(`${keyURL}`, {
@@ -27,7 +27,6 @@ async function getKeyAndPlanet(index) {
     }
 
     const data = await response.json();
-    console.log(data);
     apiKey = data.key;
     console.log(apiKey);
 
@@ -327,7 +326,3 @@ function openOverlay() {
       stars.append(star3);
     }
   }
-
-  // function stars() {
-
-  //}
