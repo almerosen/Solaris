@@ -92,6 +92,7 @@ async function planetDetails() {
     circumferenceHeader.innerHTML = "OMKRETS";
     circumference.append(circumferenceHeader);
     const circumferenceTxt = document.createElement("p");
+    circumferenceTxt.classList.add("details__txt");
     let circumferenceArray = planet.circumference.toString().split("");
     // For loop backwards every third character in the array:
     for (i = circumferenceArray.length - 3; i > 0; i -= 3 ) {
@@ -108,6 +109,7 @@ async function planetDetails() {
 
     // Space between every third integer from the back:
     const distanceFromSunTxt = document.createElement("p");
+    distanceFromSunTxt.classList.add("details__txt")
     let distance = planet.distance;
     let distanceArray = distance.toString().split("");
     for (i = distanceArray.length -3; i >0; i -= 3) { // Start the loop three characters from the back and then insert space after every third character
@@ -124,6 +126,7 @@ async function planetDetails() {
     maxTempHeader.innerHTML = ("MAX TEMPERATUR");
     maxTempDiv.append(maxTempHeader);
     const maxTempTxt = document.createElement("p");
+    maxTempTxt.classList.add("details__txt");
 
     // Temp number to array -> look for "-", if there is -> insert space after "-":
     // Testing a couple of methods...
@@ -161,6 +164,7 @@ async function planetDetails() {
     minTempDiv.append(minTempHeader);
 
     const minTempTxt = document.createElement("p");
+    minTempTxt.classList.add("details__txt");
     let minTemp = planet.temp.night;
     let minTempArray = minTemp.toString().split("");
 
@@ -186,6 +190,7 @@ async function planetDetails() {
     moonHeader.innerHTML = "MÅNAR";
     moonDiv.append(moonHeader);
     const moonTxt = document.createElement("p");
+    moonTxt.classList.add("details__txt");
     moonTxt.innerHTML = moonArray.join(", ");
     moonDiv.append(moonTxt);
 }

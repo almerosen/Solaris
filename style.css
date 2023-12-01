@@ -53,6 +53,16 @@ p {
     line-height: 170%; /* 30.6px */
 }
 
+.details__txt {
+    color: #FFF;
+    font-family: 'Roboto Condensed';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 170%; /* 30.6px */
+    letter-spacing: 2.88px;
+}
+
 .wrapper {
     width: 1440px;
     height: 900px;
