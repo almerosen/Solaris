@@ -17,7 +17,7 @@ const moonDiv = document.querySelector(".moon-container");
 
 
 // Get key function:
-async function getKey() {
+async function getKeyAndPlanet(index) {
   try {
     const response = await fetch(`${keyURL}`, {
         method: 'POST',
@@ -31,15 +31,17 @@ async function getKey() {
     apiKey = data.key;
     console.log(apiKey);
 
+    getplanet(index)
+
   } catch(error) {
     console.log("Error fetching data:", error);
   } 
 }
 
-getKey();
+//getKey();
 
 // Get planet function:
-async function getplanet(id) {  
+async function getplanet(index) {  
     try {
         const response = await fetch(`${baseURL}/bodies`, {
             method: 'GET',
@@ -47,8 +49,8 @@ async function getplanet(id) {
         });
     
         const data = await response.json();
-        console.log(data.bodies[id]);
-        planet = data.bodies[id];
+        console.log(data.bodies[index]);
+        planet = data.bodies[index];
         console.log(planet.name);
         
         planetDetails()
@@ -200,6 +202,16 @@ async function planetDetails() {
 
 
 /************** Event listeners on planet click: *****************/
+const planets = document.querySelectorAll(".planet"); // node list of all the planets to loop through with forEach:
+
+planets.forEach((planet, index) => {
+  planet.addEventListener('click', () => {
+    getKeyAndPlanet(index);
+    openOverlay();
+  })
+})
+
+/*
 const planet1 = document.querySelector(".sun");
 planet1.addEventListener('click', () => {
   getplanet(0);
@@ -254,7 +266,7 @@ const planet2 = document.querySelector(".planet2");
     getplanet(8);
   })
 
-
+*/
 
 /*********************** Overlay **************************/
 
