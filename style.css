@@ -75,6 +75,14 @@ p {
     transform: translateY(-50%);
 }
 
+.sun:hover {
+    cursor: pointer;
+    box-shadow: 0 0 30px 5px black,
+    0 0 90px 10px #bae048;
+    transition: .2s;
+
+}
+
 
 
 .header-container {
@@ -136,7 +144,8 @@ p {
     transition: .2s;
     background-color: #b2b0b0;
     cursor: pointer;
-    box-shadow: 0 0 40px 10px #bae048;
+    box-shadow: 0 0 30px 5px black,
+    0 0 40px 10px #bae048;
 
 }
 
@@ -152,7 +161,8 @@ p {
     transition: .2s;
     background-color: #c3b2b2;
     cursor: pointer;
-    box-shadow: 0 0 40px 10px #bae048;
+    box-shadow: 0 0 30px 5px black,
+    0 0 40px 10px #bae048;
 
 
 }
@@ -169,7 +179,8 @@ p {
     transition: .2s;
     background-color: #0371d7;
     cursor: pointer;
-    box-shadow: 0 0 40px 10px #bae048;
+    box-shadow: 0 0 30px 5px black,
+    0 0 40px 10px #bae048;
 
 }
 
@@ -185,7 +196,8 @@ p {
     transition: .2s;
     background-color: #ed0303;
     cursor: pointer;
-    box-shadow: 0 0 40px 10px #bae048;
+    box-shadow: 0 0 30px 5px black,
+    0 0 40px 10px #bae048;
 
 }
 
@@ -201,7 +213,8 @@ p {
     transition: .2s;
     background-color: #de6d2b;
     cursor: pointer;
-    box-shadow: 0 0 40px 10px #bae048;
+    box-shadow: 0 0 30px 5px black,
+    0 0 60px 10px #bae048;
 
 }
 
@@ -218,7 +231,8 @@ p {
     transition: .2s;
     background-color: #c99d47;
     cursor: pointer;
-    box-shadow: 0 0 40px 10px #bae048;
+    box-shadow: 0 0 30px 5px black, 
+    0 0 40px 10px #bae048;
 
 }
 
@@ -235,7 +249,8 @@ p {
     transition: .2s;
     background-color: #a1b7f1;
     cursor: pointer;
-    box-shadow: 0 0 40px 10px #bae048;
+    box-shadow: 0 0 30px 5px black,
+    0 0 40px 10px #bae048;
 
 
 }
@@ -252,7 +267,8 @@ p {
     transition: .2s;
     background-color: #5a80a4;
     cursor: pointer;
-    box-shadow: 0 0 40px 10px #bae048;
+    box-shadow: 0 0 30px 5px black,
+    0 0 40px 10px #bae048;
 
 }
 

@@ -22,7 +22,6 @@ async function getKey() {
     const response = await fetch(`${keyURL}`, {
         method: 'POST',
     });
-
     if (!response.ok) {
       throw new Error (`Request failed with status ${response.status}`);
     }
@@ -44,14 +43,15 @@ async function getplanet(id) {
     try {
         const response = await fetch(`${baseURL}/bodies`, {
             method: 'GET',
-            headers: {'x-zocom': `${apiKey}`}
+            headers: {'x-zocom': apiKey}  // (`${apiKey}`)
         });
     
         const data = await response.json();
         console.log(data.bodies[id]);
         planet = data.bodies[id];
         console.log(planet.name);
-        planetDetails(id)
+        
+        planetDetails()
 
     } catch(error) {
         console.log("Error fetching data:", error);
@@ -69,11 +69,11 @@ async function planetDetails() {
     minTempDiv.innerHTML = "";
     moonDiv.innerHTML = "";
 
-    
+    /*
     const response = await fetch(`${baseURL}/bodies`, {
         method: 'GET',
         headers: {'x-zocom': `${apiKey}`}
-    });
+    });*/
 
     let planetHeader = document.createElement("h1");
     planetHeader.innerHTML = planet.name.toUpperCase();
@@ -93,9 +93,9 @@ async function planetDetails() {
     circumference.append(circumferenceHeader);
     const circumferenceTxt = document.createElement("p");
     let circumferenceArray = planet.circumference.toString().split("");
-    // For loop backwards every third number:
+    // For loop backwards every third character in the array:
     for (i = circumferenceArray.length - 3; i > 0; i -= 3 ) {
-      circumferenceArray.splice([i], 0, " ");
+      circumferenceArray.splice([i], 0, " "); // space at every third index position from the back
     }
     circumferenceTxt.innerHTML = `${circumferenceArray.join("")} km`;
     circumference.append(circumferenceTxt);
@@ -106,24 +106,27 @@ async function planetDetails() {
     distanceFromSunHeader.innerHTML = "KM FRÅN SOLEN";
     distanceFromSunDiv.append(distanceFromSunHeader);
 
-    // Mellanslag mellan var tredje siffra bakifrån:
+    // Space between every third integer from the back:
     const distanceFromSunTxt = document.createElement("p");
     let distance = planet.distance;
     let distanceArray = distance.toString().split("");
-    for (i = distanceArray.length -3; i >0; i -= 3) { // Börjar loopen tre siffror bakifrån och lägger in mellanslag mellan var tredje siffra
+    for (i = distanceArray.length -3; i >0; i -= 3) { // Start the loop three characters from the back and then insert space after every third character
       distanceArray.splice([i], 0, " ");
     }
     distanceFromSunTxt.innerHTML = `${distanceArray.join("")} km`;
     distanceFromSunDiv.append(distanceFromSunTxt);
 
-    // Max temp, checkar ifall temperaturen innehåller "-" och inför isf mellanslag:
+
+    /************ MAX TEMP *************/
+
+    // Max temp, check if there is a "-" and insert space if there is:
     const maxTempHeader = document.createElement("h3");
     maxTempHeader.innerHTML = ("MAX TEMPERATUR");
     maxTempDiv.append(maxTempHeader);
     const maxTempTxt = document.createElement("p");
 
-    // Temperatur-nummer till array -> letar efter "-", vid träff -> lägg till mellanslag efter "-":
-    // Testar några olika metoder...
+    // Temp number to array -> look for "-", if there is -> insert space after "-":
+    // Testing a couple of methods...
     let maxTemp = planet.temp.day;
     let maxTempArray = maxTemp.toString().split("");
 
@@ -135,15 +138,24 @@ async function planetDetails() {
     }*/
     maxTempArray.forEach((char, currentindex) => {
         if (char === "-") {
-        maxTempArray.splice([(currentindex+1)], 0, " ");
+        maxTempArray.splice([(currentindex + 1)], 0, " "); // Insert space at index position + 1
       } 
     })
+
+    // If there are more integers than three, as for the sun, add space efter three from the back:
+    if (maxTemp > 999 || maxTemp < -999) { // If temp in integer is bigger than 999 or below -999
+      for (i = maxTempArray.length; i >= 0; i -= 3) {
+          maxTempArray.splice([i], 0, " ");
+        }
+    }
 
     maxTempTxt.innerHTML = `${maxTempArray.join("")} C`;
     maxTempDiv.append(maxTempTxt);
 
 
-    /****** Min temp with space between "-" and number: ******/
+    /************ MIN TEMP *************/
+    // with space between "-" and number: ******/
+
     const minTempHeader = document.createElement("h3");
     minTempHeader.innerHTML = "MIN TEMPERATUR";
     minTempDiv.append(minTempHeader);
@@ -154,11 +166,16 @@ async function planetDetails() {
 
     minTempArray.forEach((character, currentindex) => {
       if (character === "-") {
-        minTempArray.splice((currentindex + 1), 0 , " "); // Lägger till mellanslag efter ett ev "-"
+        minTempArray.splice((currentindex + 1), 0 , " "); // Insert space after "-" if there is one
       }
     }) 
 
-    //minTempArray.splice(1, 0, " "); // Lägger till ett mellanslag efter minustecknet
+    if (minTemp > 999 || minTemp < -999) { // If temp in integer is bigger than 999 or below -999
+      for (i = minTempArray.length; i >= 0; i -= 3) {
+          minTempArray.splice([i], 0, " ");
+        }
+    }
+
     minTempTxt.innerHTML = `${minTempArray.join("")} C`;
     minTempDiv.append(minTempTxt);
 
@@ -178,7 +195,13 @@ async function planetDetails() {
 
 
 /************** Event listeners on planet click: *****************/
- const planet2 = document.querySelector(".planet2");
+const planet1 = document.querySelector(".sun");
+planet1.addEventListener('click', () => {
+  getplanet(0);
+  openOverlay();
+}) 
+
+const planet2 = document.querySelector(".planet2");
   planet2.addEventListener('click', () => {
     openOverlay();
     getplanet(1);
@@ -231,9 +254,9 @@ async function planetDetails() {
 /*********************** Overlay **************************/
 
 function openOverlay() {
-    document.getElementById("overlay-page").style.width = "100%"; // med transision i css för att få effekt att overlay glider in från sidan
-    stars.innerHTML = "";
-    stars6px(); // Funktionerna för at slumpa ut stjärnor
+    document.getElementById("overlay-page").style.width = "100%"; // with transition and width 0% in css -> overlay "swipes" in from the side
+    stars.innerHTML = ""; // reset stars when "opening" new planet
+    stars6px(); // PLace stars randomly
     stars3px();
   }
   
@@ -248,19 +271,19 @@ function openOverlay() {
 
 
   /********************* STARS ************************/
-  // Skapar stjärnor och slumpar ut dem horisontellt och verrtikalt:
+  // Create stars and place them randomly in horizontal and vertical plane
 
   const stars = document.querySelector(".stars");
 
   function random(max) {
-    return Math.floor(Math.random() * max);
+    return Math.floor(Math.random() * max); // Max pixel size horizontal or vertical (max of caontainer: x: 1136.px and y: 760px)
   }
   function randomPosition(element, xMax, yMax) {
-    element.style.left = random(xMax) + "px";
-    element.style.top = random(yMax) + "px";
+    element.style.left = random(xMax) + "px"; // random horizontal
+    element.style.top = random(yMax) + "px"; // random vertical
   }
 
-  function stars6px() {
+  function stars6px() { // creates 27 stars of size 6px x 6px place them randomly
     for (i = 0; i < 27; i++) {
       const star6 = document.createElement("div");
       star6.style.width = "6px";
@@ -274,7 +297,7 @@ function openOverlay() {
     }
   }
 
-  function stars3px() {
+  function stars3px() { // creates 22 stars of size 3px x 3px and place them randomly
     for (j = 0; j < 22; j++) {
       const star3 = document.createElement("div");
       star3.style.width = "3px";
