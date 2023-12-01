@@ -62,14 +62,6 @@ p {
     position: relative;
 }
 
-.wrapper-planets {
-    width: 1440px;
-    height: 900px;
-    margin: 4rem auto;
-    background: linear-gradient(90deg, #0C164D 0%, #190B22 100%);    
-    overflow: hidden;
-    position: relative;
-}
 
 .sun {
     width: 1278px;
@@ -78,7 +70,7 @@ p {
     background: #FFD029;
     box-shadow: 0px 0px 250px 0px rgba(255, 208, 41, 0.20);
     position: absolute;
-    left: -80%;
+    left: -1160px; /*-80%*/
     top: 50%;
     transform: translateY(-50%);
 }
@@ -144,6 +136,8 @@ p {
     transition: .2s;
     background-color: #b2b0b0;
     cursor: pointer;
+    box-shadow: 0 0 40px 10px #bae048;
+
 }
 
 .planet3 {
@@ -158,6 +152,8 @@ p {
     transition: .2s;
     background-color: #c3b2b2;
     cursor: pointer;
+    box-shadow: 0 0 40px 10px #bae048;
+
 
 }
 
@@ -173,6 +169,8 @@ p {
     transition: .2s;
     background-color: #0371d7;
     cursor: pointer;
+    box-shadow: 0 0 40px 10px #bae048;
+
 }
 
 .planet5 {
@@ -187,6 +185,8 @@ p {
     transition: .2s;
     background-color: #ed0303;
     cursor: pointer;
+    box-shadow: 0 0 40px 10px #bae048;
+
 }
 
 .planet6 {
@@ -201,6 +201,8 @@ p {
     transition: .2s;
     background-color: #de6d2b;
     cursor: pointer;
+    box-shadow: 0 0 40px 10px #bae048;
+
 }
 
 .planet7 {
@@ -216,6 +218,8 @@ p {
     transition: .2s;
     background-color: #c99d47;
     cursor: pointer;
+    box-shadow: 0 0 40px 10px #bae048;
+
 }
 
 
@@ -231,6 +235,9 @@ p {
     transition: .2s;
     background-color: #a1b7f1;
     cursor: pointer;
+    box-shadow: 0 0 40px 10px #bae048;
+
+
 }
 
 .planet9 {
@@ -245,6 +252,8 @@ p {
     transition: .2s;
     background-color: #5a80a4;
     cursor: pointer;
+    box-shadow: 0 0 40px 10px #bae048;
+
 }
 
 .ellipse10 {
@@ -272,7 +281,7 @@ p {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: -80%;
+    left: -1160px;
 }
 
 .sun-middle {
@@ -284,7 +293,7 @@ p {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: -80%;
+    left: -1170px/*-80%*/;
 }
 
 .sun-outer {
@@ -296,10 +305,21 @@ p {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: -80%;
+    left: -1184px/*-80%*/;
     color: #428ED40F;
 }
 
+.stars {
+    width: 1134.6px;
+    height: 760px;
+    position: absolute;
+    top: 98px;
+    left: 255px;
+    /*
+    bottom: 5%;
+    right: 3%;*/
+    filter: blur(2px);
+  }
 
 .content-container {
     display: flex;
@@ -311,14 +331,14 @@ p {
     flex-shrink: 0;
     color: white;
 
-    margin: 6.31rem 25rem 7.31rem 25rem ;
-
-    /*
     position: absolute;
+    top: 101px;
+    left: 400px;
+    /*
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    */
+    transform: translate(-50%, -50%);*/
+
 }
 
 .planet-header__container {
@@ -421,7 +441,7 @@ p {
 /********* OVERLAY STYLING ************/
 .overlay {
     height: 100%;
-    width: 0;
+    width: 0; /* width 100% i javascript för att "öppna" overlay*/
     position: fixed;
     z-index: 1;
     top: 0;
@@ -430,15 +450,16 @@ p {
     overflow-x: hidden;
     transition: 0.5s;
   }
-  /*
-  .overlay-content {
+
+  .wrapper-planets {
+    width: 1440px;
+    height: 900px;
+    margin: 4rem auto;
+    background: linear-gradient(90deg, #0C164D 0%, #190B22 100%);    
+    overflow: hidden;
     position: relative;
-    top: 25%;
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
-  }
-  */
+}
+
   .closebutton {
     font-size: 36px;
     color: #818181;
