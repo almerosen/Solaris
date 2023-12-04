@@ -45,7 +45,7 @@ async function getplanet(index) {
     try {
         const response = await fetch(`${baseURL}/bodies`, {
             method: 'GET',
-            headers: {'x-zocom': apiKey}  // (`${apiKey}`)
+            headers: {'x-zocom': apiKey}
         });
     
         const data = await response.json();
