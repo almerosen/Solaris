@@ -19,7 +19,7 @@ const moonDiv = document.querySelector(".moon-container");
 // Get key and planet function:
 async function getKeyAndPlanet(index) {
   try {
-    const response = await fetch(`${keyURL}`, {
+    const response = await fetch(keyURL, {
         method: 'POST',
     });
     if (!response.ok) {
@@ -33,14 +33,15 @@ async function getKeyAndPlanet(index) {
     getplanet(index)
 
   } catch(error) {
-    console.log("Error fetching data:", error);
+    console.error("Error fetching data:", error);
   } 
 }
 
-//getKey();
+
 
 // Get planet function:
-async function getplanet(index) {  
+async function getplanet(index) {
+    
     try {
         const response = await fetch(`${baseURL}/bodies`, {
             method: 'GET',
@@ -48,15 +49,23 @@ async function getplanet(index) {
         });
     
         const data = await response.json();
+        const planets = data.bodies;
+        planets.forEach((element, index) => {
+          console.log(element.name, index);
+        })
+        
+        console.log(planets);
         console.log(data.bodies[index]);
         planet = data.bodies[index];
         
         planetDetails()
 
     } catch(error) {
-        console.log("Error fetching data:", error);
+        console.error("Error fetching data:", error);
     }    
 }
+
+
 
 // Get planet details and reset and create elements:
 function planetDetails() {
@@ -69,25 +78,29 @@ function planetDetails() {
     minTempDiv.innerHTML = "";
     moonDiv.innerHTML = "";
     
-
+    // Header:
     let planetHeader = document.createElement("h1");
     planetHeader.innerHTML = planet.name.toUpperCase();
     planetHeaderDiv.append(planetHeader);
 
+    // Header latin:
     const planetHeaderLatin = document.createElement("h2");
     planetHeaderLatin.innerHTML = planet.latinName.toUpperCase();
     planetHeaderLatinDiv.append(planetHeaderLatin);
 
+    // Description text:
     const descriptionTxt = document.createElement("p");
     descriptionTxt.innerHTML = planet.desc;
     description.append(descriptionTxt);
 
-    // Circumference, space between every third number:
+    // Circumference:
     const circumferenceHeader = document.createElement("h3");
     circumferenceHeader.innerHTML = "OMKRETS";
     circumference.append(circumferenceHeader);
+
     const circumferenceTxt = document.createElement("p");
     circumferenceTxt.classList.add("details__txt");
+    // Circumference, space between every third number:
     let circumferenceArray = planet.circumference.toString().split("");
     // For loop backwards every third character in the array:
     for (i = circumferenceArray.length - 3; i > 0; i -= 3 ) {
@@ -102,29 +115,26 @@ function planetDetails() {
     distanceFromSunHeader.innerHTML = "KM FRÅN SOLEN";
     distanceFromSunDiv.append(distanceFromSunHeader);
 
-    // Space between every third integer from the back:
     const distanceFromSunTxt = document.createElement("p");
     distanceFromSunTxt.classList.add("details__txt")
+    // Space between every third integer from the back:
     let distance = planet.distance;
     let distanceArray = distance.toString().split("");
-    for (i = distanceArray.length -3; i >0; i -= 3) { // Start the loop three characters from the back and then insert space after every third character
+    for (i = distanceArray.length - 3; i > 0; i -= 3) { // Start the loop three characters from the back and then insert space after every third character
       distanceArray.splice([i], 0, " ");
     }
     distanceFromSunTxt.innerHTML = `${distanceArray.join("")} km`;
     distanceFromSunDiv.append(distanceFromSunTxt);
 
-
-    /************ MAX TEMP *************/
-
-    // Max temp, check if there is a "-" and insert space if there is:
+    // Max temp:
     const maxTempHeader = document.createElement("h3");
     maxTempHeader.innerHTML = ("MAX TEMPERATUR");
     maxTempDiv.append(maxTempHeader);
+
     const maxTempTxt = document.createElement("p");
     maxTempTxt.classList.add("details__txt");
 
     // Temp number to array -> look for "-", if there is -> insert space after "-":
-    // Testing a couple of methods...
     let maxTemp = planet.temp.day;
     let maxTempArray = maxTemp.toString().split("");
 
@@ -134,8 +144,8 @@ function planetDetails() {
           break;
       } 
     }*/
-    maxTempArray.forEach((char, currentindex) => {
-        if (char === "-") {
+    maxTempArray.forEach((character, currentindex) => {
+        if (character === "-") {
         maxTempArray.splice([(currentindex + 1)], 0, " "); // Insert space at index position + 1
       } 
     })
@@ -184,6 +194,7 @@ function planetDetails() {
     const moonHeader = document.createElement("h3");
     moonHeader.innerHTML = "MÅNAR";
     moonDiv.append(moonHeader);
+
     const moonTxt = document.createElement("p");
     moonTxt.classList.add("details__txt");
     moonTxt.innerHTML = moonArray.join(", ");
@@ -195,9 +206,9 @@ function planetDetails() {
 
 
 /************** Event listeners on planet click: *****************/
-const planets = document.querySelectorAll(".planet"); // node list of all the planets to loop through with forEach:
+const planetLinks = document.querySelectorAll(".planet"); // node list of all the planets to loop through with forEach:
 
-planets.forEach((planet, index) => {
+planetLinks.forEach((planet, index) => {
   planet.addEventListener('click', () => {
     getKeyAndPlanet(index);
     openOverlay();
@@ -289,8 +300,8 @@ function openOverlay() {
     return Math.floor(Math.random() * max); // Max pixel size horizontal or vertical (max of caontainer: x: 1136.px and y: 760px)
   }
   function randomPosition(element, xMax, yMax) {
-    element.style.left = random(xMax) + "px"; // random horizontal
-    element.style.top = random(yMax) + "px"; // random vertical
+    element.style.left = random(xMax) + "px"; // random horizontal, the div's width
+    element.style.top = random(yMax) + "px"; // random vertical, the div's height
   }
 
   function stars6px() { // creates 27 stars of size 6px x 6px place them randomly
