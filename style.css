@@ -11,6 +11,9 @@
 body {
     width: 100vw;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 h1 {
@@ -66,7 +69,7 @@ p {
 .wrapper {
     width: 1440px;
     height: 900px;
-    margin: 4rem auto;
+    /*margin: 4rem auto;*/
     background: linear-gradient(90deg, #0C164D 0%, #190B22 100%);
     overflow: hidden;
     position: relative;
@@ -155,7 +158,6 @@ p {
     cursor: pointer;
     box-shadow: 0 0 30px 5px black,
     0 0 40px 10px #bae048;
-
 }
 
 .planet3 {
@@ -313,16 +315,46 @@ p {
     color: #FFFFFF66;
 }
 
-/***************************************************/
+/*************************************************************/
 
-/**************** PLANETS DETAILS ******************/
+/**************** OVERLAY - PLANETS DETAILS ******************/
 
-/***************************************************/
+/*************************************************************/
+.overlay {
+    height: 100%;
+    width: 0; /* width 100% in main.js to "open" the overlay*/
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .closebutton {
+    font-size: 36px;
+    color: #818181;
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    font-size: 70px;
+    z-index: 1;
+  }
+  
+  .closebutton:hover {
+    color: #f1f1f1;
+    transition: 0.3s;
+    cursor: pointer;
+  }
 
  .wrapper-planets {
     width: 1440px;
     height: 900px;
-    margin: 4rem auto;
+    /*margin: 4rem auto;*/
     background: linear-gradient(90deg, #0C164D 0%, #190B22 100%);    
     overflow: hidden;
     position: relative;
@@ -488,34 +520,3 @@ p {
     gap: 4px;
     flex: 1 0 0;
 }
-
-/**************************************/
-/********* OVERLAY STYLING ************/
-/**************************************/
-
-.overlay {
-    height: 100%;
-    width: 0; /* width 100% in main.js to "open" the overlay*/
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgba(0,0,0, 0.9);
-    overflow-x: hidden;
-    transition: 0.5s;
-  }
-
-  .closebutton {
-    font-size: 36px;
-    color: #818181;
-    position: absolute;
-    top: 35px;
-    right: 50px;
-    font-size: 70px;
-  }
-  
-  .closebutton:hover {
-    color: #f1f1f1;
-    transition: 0.3s;
-    cursor: pointer;
-  }
