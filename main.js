@@ -1,7 +1,7 @@
 const baseURL = "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/";
 const keyURL = "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/keys";
 
-let apiKey = "";
+//let apiKey = "";
 let planet = "";
 
 
@@ -27,10 +27,10 @@ async function getKeyAndPlanet(index) {
     }
 
     const data = await response.json();
-    apiKey = data.key;
+    const apiKey = data.key;
     console.log(apiKey);
 
-    getplanet(index)
+    getplanet(index, apiKey)
 
   } catch(error) {
     console.error("Error fetching data:", error);
@@ -40,7 +40,7 @@ async function getKeyAndPlanet(index) {
 
 
 // Get planet function:
-async function getplanet(index) {
+async function getplanet(index, apiKey) {
     
     try {
         const response = await fetch(`${baseURL}/bodies`, {
