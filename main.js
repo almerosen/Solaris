@@ -2,7 +2,7 @@ const baseURL = "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/";
 const keyURL = "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/keys";
 
 //let apiKey = "";
-let planet = "";
+//let planet = "";
 
 
 const planetHeaderDiv = document.querySelector(".planet-header");
@@ -16,7 +16,10 @@ const moonDiv = document.querySelector(".moon-container");
 
 
 
-// Get key and planet function:
+/*****************************************************************/
+/*****************  GET KEY AND PLANET FUNCTION: *****************/
+/*****************************************************************/
+
 async function getKeyAndPlanet(index) {
   try {
     const response = await fetch(keyURL, {
@@ -47,28 +50,33 @@ async function getplanet(index, apiKey) {
             method: 'GET',
             headers: {'x-zocom': apiKey}
         });
+
+        if (!response.ok) {
+          throw new Error (`Request fething data failed with status: ${response.status}`);
+        }
     
         const data = await response.json();
         const planets = data.bodies;
+        const planet = planets[index];
+        console.log(planets);
+        console.log(planet);
+        
         planets.forEach((element, index) => {
           console.log(element.name, index);
         })
         
-        console.log(planets);
-        console.log(data.bodies[index]);
-        planet = data.bodies[index];
-        
-        planetDetails()
+        planetDetails(planet);
 
     } catch(error) {
         console.error("Error fetching data:", error);
     }    
 }
 
+/*****************************************************************/
+/******** Get planet details and reset and create elements: ******/
+/*****************************************************************/
 
-
-// Get planet details and reset and create elements:
-function planetDetails() {
+function planetDetails(planet) {
     planetHeaderDiv.innerHTML = "";
     planetHeaderLatinDiv.innerHTML = "";
     description.innerHTML = "";
@@ -78,7 +86,7 @@ function planetDetails() {
     minTempDiv.innerHTML = "";
     moonDiv.innerHTML = "";
     
-    // Header:
+    // Header planet:
     let planetHeader = document.createElement("h1");
     planetHeader.innerHTML = planet.name.toUpperCase();
     planetHeaderDiv.append(planetHeader);
@@ -161,8 +169,8 @@ function planetDetails() {
     maxTempDiv.append(maxTempTxt);
 
 
-    /************ MIN TEMP *************/
-    // with space between "-" and number: ******/
+    // Min temp:
+    // with space between "-" and number:
 
     const minTempHeader = document.createElement("h3");
     minTempHeader.innerHTML = "MIN TEMPERATUR";
@@ -202,10 +210,9 @@ function planetDetails() {
 }
 
 /*****************************************************************/
+/************** EVENT LISTENERS ON PLANET CLICK: *****************/
+/*****************************************************************/
 
-
-
-/************** Event listeners on planet click: *****************/
 const planetLinks = document.querySelectorAll(".planet"); // node list of all the planets to loop through with forEach:
 
 planetLinks.forEach((planet, index) => {
@@ -272,7 +279,9 @@ const planet2 = document.querySelector(".planet2");
 
 */
 
-/*********************** Overlay **************************/
+/**********************************************************/
+/******************* OVERLAY  FUNCTIONS *******************/
+/**********************************************************/
 
 function openOverlay() {
     document.getElementById("overlay-page").style.width = "100%"; // with transition and width 0% in css -> overlay "swipes" in from the side
@@ -290,8 +299,10 @@ function openOverlay() {
     closeOverlay();
   })
 
+  /*********************************************************/
+  /******************* STARS BACKGROUND ********************/
+  /*********************************************************/
 
-  /********************* STARS ************************/
   // Create stars and place them randomly in horizontal and vertical plane
 
   const stars = document.querySelector(".stars");
