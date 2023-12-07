@@ -1,9 +1,6 @@
 const baseURL = "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/";
 const keyURL = "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/keys";
 
-//let apiKey = "";
-//let planet = "";
-
 
 const planetHeaderDiv = document.querySelector(".planet-header");
 const planetHeaderLatinDiv = document.querySelector(".planet-header__latin");
@@ -31,7 +28,6 @@ async function getKeyAndPlanet(index) {
 
     const data = await response.json();
     const apiKey = data.key;
-    console.log(apiKey);
 
     getplanet(index, apiKey)
 
@@ -39,7 +35,6 @@ async function getKeyAndPlanet(index) {
     console.error("Error fetching data:", error);
   } 
 }
-
 
 
 // Get planet function:
@@ -58,12 +53,6 @@ async function getplanet(index, apiKey) {
         const data = await response.json();
         const planets = data.bodies;
         const planet = planets[index];
-        console.log(planets);
-        console.log(planet);
-        
-        planets.forEach((element, index) => {
-          console.log(element.name, index);
-        })
         
         planetDetails(planet);
 
@@ -109,7 +98,7 @@ function planetDetails(planet) {
     const circumferenceTxt = document.createElement("p");
     circumferenceTxt.classList.add("details__txt");
     // Circumference, space between every third number:
-    let circumferenceArray = planet.circumference.toString().split("");
+    let circumferenceArray = planet.circumference.toString().split(""); // Integers to string and split string into array of substrings
     // For loop backwards every third character in the array:
     for (i = circumferenceArray.length - 3; i > 0; i -= 3 ) {
       circumferenceArray.splice([i], 0, " "); // space at every third index position from the back
@@ -146,12 +135,6 @@ function planetDetails(planet) {
     let maxTemp = planet.temp.day;
     let maxTempArray = maxTemp.toString().split("");
 
-    /*for (i = 0; i < maxTempArray.length; i++) {
-      if (maxTempArray[i] == "-") {
-          maxTempArray.splice(([i]+1), 0, (" ")); // Lägger till ett mellanslag efter minustecknet
-          break;
-      } 
-    }*/
     maxTempArray.forEach((character, currentindex) => {
         if (character === "-") {
         maxTempArray.splice([(currentindex + 1)], 0, " "); // Insert space at index position + 1
@@ -222,62 +205,6 @@ planetLinks.forEach((planet, index) => {
   })
 })
 
-/*
-const planet1 = document.querySelector(".sun");
-planet1.addEventListener('click', () => {
-  getplanet(0);
-  openOverlay();
-}) 
-
-const planet2 = document.querySelector(".planet2");
-  planet2.addEventListener('click', () => {
-    openOverlay();
-    getplanet(1);
-  })
-
-  const planet3 = document.querySelector(".planet3");
-  planet3.addEventListener('click', () => {
-    openOverlay();
-    getplanet(2);
-  })
-
-  const planet4 = document.querySelector(".planet4");
-  planet4.addEventListener('click', () => {
-    openOverlay();
-    getplanet(3);
-  })
-
-  const planet5 = document.querySelector(".planet5");
-  planet5.addEventListener('click', () => {
-    openOverlay();
-    getplanet(4);
-  })
-
-  const planet6 = document.querySelector(".planet6");
-  planet6.addEventListener('click', () => {
-    openOverlay();
-    getplanet(5);
-  })
-
-  const planet7 = document.querySelector(".planet7");
-  planet7.addEventListener('click', () => {
-    openOverlay();
-    getplanet(6);
-  })
-
-  const planet8 = document.querySelector(".planet8");
-  planet8.addEventListener('click', () => {
-    openOverlay();
-    getplanet(7);
-  })
-
-  const planet9 = document.querySelector(".planet9");
-  planet9.addEventListener('click', () => {
-    openOverlay();
-    getplanet(8);
-  })
-
-*/
 
 /**********************************************************/
 /******************* OVERLAY  FUNCTIONS *******************/
@@ -308,9 +235,10 @@ function openOverlay() {
   const stars = document.querySelector(".stars");
 
   function random(max) {
-    return Math.floor(Math.random() * max); // Max pixel size horizontal or vertical (max of caontainer: x: 1136.px and y: 760px)
+    return Math.floor(Math.random() * max); // Max pixel size horizontal or vertical (max of container: x: 1136.px and y: 760px)
   }
   function randomPosition(element, xMax, yMax) {
+    element.style.position = "absolute";
     element.style.left = random(xMax) + "px"; // random horizontal, the div's width
     element.style.top = random(yMax) + "px"; // random vertical, the div's height
   }
@@ -323,7 +251,6 @@ function openOverlay() {
       star6.style.borderRadius = "50%";
       star6.style.backgroundColor = "white";
       star6.style.opacity = "0.3";
-      star6.style.position = "absolute";
       randomPosition(star6, 1134.6, 760);
       stars.append(star6);
     }
@@ -337,7 +264,6 @@ function openOverlay() {
       star3.style.borderRadius = "50%";
       star3.style.backgroundColor = "rgba(255, 255, 255, 1)";
       star3.style.opacity = "0.3";
-      star3.style.position = "absolute";
       randomPosition(star3, 1134.6, 760);
       stars.append(star3);
     }
